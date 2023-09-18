@@ -1,21 +1,22 @@
 export {storageManager, arrayRef };
-import { Task } from "./task";
+import { Task } from "./internal";
 
 
 
 
 let storageManager = function(){
-    let arrayOfAllTasks = [{"car": 1},2,{"lol": 4},5];
+    let arrayOfAllTasks = []; //{"car": 1},2,{"lol": 4},5
     //console.log("What im sending in: ", arrayOfAllTasks);
-    const reloadDataFromStorage = function(){
+    let reloadDataFromStorage = function(){
         arrayOfAllTasks = JSON.parse(localStorage.getItem('database array'));
         arrayOfAllTasks.forEach((task) => {
-            //Object.assign(Object.getPrototypeOf(task), Task.prototype);
+            Object.assign(Object.getPrototypeOf(task), Task.prototype);
         })
     }
 
-    const saveDataToStorage = function(){
+    let saveDataToStorage = function(){
         localStorage.setItem('database array', JSON.stringify(arrayOfAllTasks));
+        //console.log(localStorage.setItem('database array', "fuck you nigga, work it."));
     }
 
    /*  const addToStorage = function(task){
@@ -36,7 +37,7 @@ let storageManager = function(){
     return{
         arrayOfAllTasks,
         saveDataToStorage,
-        //addToStorage,
+        reloadDataFromStorage,
     }
 
 

@@ -1,5 +1,5 @@
-
-import { storageManager, arrayRef } from "./storage";
+export { TaskManager, Task };
+import { storageManager, arrayRef } from "./internal";
 
 
 /* let Task = function(title, description = null, dueDate = null, priority = null, notes = null){
@@ -43,7 +43,8 @@ let Task = function (title, project = null,description = null, dueDate = null, p
 
 Task.prototype.setTitle = function (newTitle) {
 	this.title = newTitle;
-	storageManager.saveDataToStorage;
+	storageManager.saveDataToStorage();
+	console.log("saved new title to the database");
 }
 
 Task.prototype.getTitle = function () {
@@ -52,6 +53,7 @@ Task.prototype.getTitle = function () {
 
 Task.prototype.setProject = function (newProject) {
 	this.project = newProject;
+	storageManager.saveDataToStorage();
 }
 
 Task.prototype.getProject = function () {
@@ -60,6 +62,7 @@ Task.prototype.getProject = function () {
 
 Task.prototype.setDescription = function (newDescription) {
 	this.description = newDescription;
+	storageManager.saveDataToStorage();
 }
 
 Task.prototype.getDescription = function () {
@@ -68,6 +71,7 @@ Task.prototype.getDescription = function () {
 
 Task.prototype.setDueDate = function (newDueDate) {
 	this.dueDate = newDueDate;
+	storageManager.saveDataToStorage();
 }
 
 Task.prototype.getDueDate = function () {
@@ -76,6 +80,7 @@ Task.prototype.getDueDate = function () {
 
 Task.prototype.setPriority = function (newPriority) {
 	this.priority = newPriority;
+	storageManager.saveDataToStorage();
 }
 
 Task.prototype.getPriority = function () {
@@ -84,6 +89,7 @@ Task.prototype.getPriority = function () {
 
 Task.prototype.setNotes = function (newNotes) {
 	this.notes = newNotes;
+	storageManager.saveDataToStorage();
 }
 
 Task.prototype.getNotes = function () {
@@ -121,7 +127,7 @@ Task.prototype.getNotes = function () {
  */
 
 let test1 = new Task('test task');
-test1.setPriority("abc")
+//test1.setPriority("abc")
 console.log(test1)
 
 let TaskManager = function () {
@@ -189,5 +195,5 @@ let TaskManager = function () {
 
 
 
-export { TaskManager, Task };
+
 
