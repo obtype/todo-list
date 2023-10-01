@@ -57,6 +57,19 @@ div.content{
     font-size: 30px;
 }
 
+.card {
+    background-color: rgb(197, 157, 108);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+
+.card .title{
+    font-size: 16px;
+}
+
 .footer{
     background-color:rgb(104, 102, 102);
     grid-column-start: 1;
@@ -65,5 +78,6 @@ div.content{
     justify-content: center;
     align-items: center;
     color:#c3f9f1;
+    /* font-family: 'Nabla';  its a sussy font owo*/
     /* height: 200px;  The height for the footer is actually set from the (grid-template-rows: 1fr 20px;), grid-template-rows property in the parent container. The '20px' is the height*/
 }
