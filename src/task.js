@@ -103,8 +103,13 @@ console.log(test1)
 let TaskManager = function () {
 
 
+	const createTestTasks = function (num){
+		for(let i = 0; i < num; i++){
+			createTask(`Test task ${i} hoho <3`);
+		}
+	}
 
-	console.log("testing123")
+	
 	const createTask = function (title, project ='none') { 
 		let task = new Task(title, project);
 		
@@ -138,6 +143,7 @@ let TaskManager = function () {
 	return {
 		createTask,
 		deleteTask,
+		createTestTasks,
 
 
 	}
