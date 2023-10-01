@@ -10,9 +10,18 @@ export {createUI};
 // before that, I need to decide on a way to organize my database array so I can -- done.
 
 
+function clearBoard(){
+    let Board = document.querySelector('div.card-list');
+    while(Board.firstChild){
+        Board.removeChild(Board.firstChild);        
+    }
+}
+
+
 function updateTaskBoard(projectName){
 
     let Board = document.querySelector('div.card-list');
+    clearBoard();
     
     let taskCard = document.createElement('div');
     let taskTitle = document.createElement('div');
@@ -42,6 +51,50 @@ function updateTaskBoard(projectName){
     });
 }
 
+/* function getListOfProjects(){
+    arrayRef
+}
+ */
+
+function updateProjectList(){
+    let listOfProjects = Object.keys(arrayRef);
+    listOfProjects.shift();
+    listOfProjects.shift();
+
+    let projectList = document.querySelector('.project ul');
+
+
+
+    listOfProjects.forEach(project => {
+        let projectItem = document.createElement('li');
+        projectItem.setAttribute('data-project', project);
+        projectItem.textContent = project;
+
+        projectItem.addEventListener('click', e => updateTaskBoard(e.target.getAttribute('data-project')));
+
+        projectList.appendChild(projectItem);
+        //This loop updates the project list according to the projects 
+    })
+
+}
+
+
+function addEventHandlers() {
+   
+
+    let projectList = document.querySelector('.project ul');
+    while(projectList.firstChild){
+        projectList.removeChild(projectList.firstChild);        //clear the previous list items.
+    }
+
+    updateProjectList();
+
+    let defaultList = document.querySelector('.default .title');
+
+    defaultList.addEventListener('click', e => updateTaskBoard(e.target.getAttribute('data-project')));
+
+}
+
 
 
 
@@ -50,7 +103,7 @@ function createUI(){
     initPage();
 
     updateTaskBoard('none');
-
+    addEventHandlers();
 }
 
 

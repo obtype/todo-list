@@ -24,8 +24,8 @@ function initSidebar(){
     sidebarTitle.textContent = 'Ink Scrolls'
     projectSecTitle.textContent = 'Your Projects';
     defaultSecTitle.textContent = 'Default List';
-    projectListItem1.textContent = 'Project 1';
-    projectListItem2.textContent = 'Project 2';
+    projectListItem1.textContent = 'House Chores';
+    projectListItem2.textContent = 'Wedding Anniversary';
 
 
     sidebar.classList.add('sidebar');
@@ -34,6 +34,8 @@ function initSidebar(){
     defaultSecTitle.classList.add('title');
     projectSec.classList.add('project');
     projectSecTitle.classList.add('title');
+
+    defaultSecTitle.setAttribute('data-project', 'none');
     
 
 
