@@ -113,4 +113,3 @@ function initPage(){
 
 }
 
-console.log('check123')

@@ -113,7 +113,7 @@ let TaskManager = function () {
 	const createTask = function (title, project ='none') { 
 		let task = new Task(title, project);
 		
-		arrayRef.push(task);
+		arrayRef['unsorted'].push(task);
 		storageManager.saveDataToStorage();
 
 		return task;
@@ -148,10 +148,6 @@ let TaskManager = function () {
 
 	}
 }();
-
-
-console.log("from task.js");
-
 
 
 
