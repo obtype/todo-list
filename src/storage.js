@@ -35,6 +35,7 @@ let storageManager = function(){
 
 let arrayRef = storageManager.arrayOfAllTasks;
 
+console.log("From storage.js");
 
 
 

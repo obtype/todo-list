@@ -105,7 +105,7 @@ let TaskManager = function () {
 
 
 	console.log("testing123")
-	const createDefaultTask = function (title, project ='none') { 
+	const createTask = function (title, project ='none') { 
 		let task = new Task(title, project);
 		
 		arrayRef.push(task);
@@ -113,7 +113,7 @@ let TaskManager = function () {
 
 		return task;
 	}
-	const deleteDefaultTask = function (title) {
+	const deleteTask = function (title) {
 
 		console.log("Before deletion length", arrayRef.length);
 		
@@ -130,17 +130,21 @@ let TaskManager = function () {
 		storageManager.saveDataToStorage();
 	}
 
+	// Basically a default task is a task without any (parent) project that it belongs to. I guess I shouldnt realy make a different function for a project task; instead, I should just change the function to createTask() and make the default project parameter = 'none'
+
 	
 
 
 	return {
-		createDefaultTask,
-		deleteDefaultTask,
+		createTask,
+		deleteTask,
 
 
 	}
 }();
 
+
+console.log("from task.js");
 
 
 
