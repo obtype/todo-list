@@ -11,7 +11,7 @@ let storageManager = function(){
     let sortArray = function(){
 
         arraysOfAllTasks['unsorted'].forEach((task) => {
-            arraysOfAllTasks[task.getProject()].push(task);     //This will give an error if the project that you  are assigning this task to, does not exist. This can be fixed by forcefully creating a project when this exception is thrown, or I can just ignore it for now and create the project explicitly (using the TaskManager.createProject(); ),  before I assign tasks to it.
+            arraysOfAllTasks[task.getProject()].push(task);     //This will give an error if the project that you  are assigning this task to, does not exist. This can be fixed by forcefully creating a project (over here) when this exception is thrown, or I can just ignore it for now and create the project explicitly (using the TaskManager.createProject(); ),  before I assign tasks to it.
         })
 
         arraysOfAllTasks['unsorted'] = [];

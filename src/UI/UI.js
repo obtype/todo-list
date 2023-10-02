@@ -27,15 +27,23 @@ function updateTaskBoard(projectName){
     let taskTitle = document.createElement('div');
     let taskPriority = document.createElement('div');
     let taskDueDate = document.createElement('div');
+    let deleteButton = document.createElement('button');
+    let viewButton = document.createElement('button');
     
     taskCard.classList.add('card');
     taskTitle.classList.add('title');
     taskPriority.classList.add('priority');
     taskDueDate.classList.add('duedate');
+    deleteButton.classList.add('delete');
+    viewButton.classList.add('view');
 
+    
     taskCard.appendChild(taskTitle);
     taskCard.appendChild(taskPriority);
     taskCard.appendChild(taskDueDate);
+    taskCard.appendChild(deleteButton);
+    taskCard.appendChild(viewButton);
+
 
     arrayRef[projectName].forEach(task => {
         let card = taskCard.cloneNode(true);
@@ -43,7 +51,19 @@ function updateTaskBoard(projectName){
         card.querySelector('.title').textContent = `Title: ${task.getTitle()}`;
         card.querySelector('.priority').textContent = `Priority: ${task.getPriority()}`;
         card.querySelector('.duedate').textContent = `Due date: ${task.getDueDate()}`;
-        
+        card.querySelector('.delete').textContent = 'X';
+        card.querySelector('.view').textContent = 'O';
+
+        card.setAttribute('data-project', task.getProject());
+        card.setAttribute('data-index', arrayRef[task.getProject()].indexOf(task));
+        //console.log(arrayRef[task.getProject()].indexOf(task));
+
+        card.querySelector('.delete').addEventListener('click', event => {
+            console.log(event);
+                // each card needs to have a data-index attribute that indicates its index in the database array.
+                // then I need to figure out a way to get the current project that is being displayed. I am thinking that I should create a global variable that stores the state of which project is currently on the page as display. But, that might get troublesome later on, if I decide to create a tab with tasks from multiple projects displayed in the dashboard at the same time. Think of a solution to that. One way would be to just include the project name as a data-attribute in each card;
+                // OK, I have decided to include 2 data-attributes: index and project. This will make the process of identifying tasks much more streamlined and reliable.
+        });
 
 
         Board.appendChild(card);
