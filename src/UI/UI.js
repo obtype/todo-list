@@ -64,6 +64,7 @@ function updateTaskBoard(projectName){
             let targetProject = event.target.parentNode.getAttribute('data-project');
             let targetIndex = event.target.parentNode.getAttribute('data-index');
             TaskManager.deleteTask(targetProject, targetIndex);
+            updateTaskBoard(projectName);
         });
 
         Board.appendChild(card);
@@ -82,6 +83,9 @@ function updateProjectList(){
     listOfProjects.shift();
 
     let projectList = document.querySelector('.project ul');
+    while(projectList.firstChild){
+        projectList.removeChild(projectList.firstChild);
+    }
 
 
 

@@ -25,6 +25,7 @@ let storageManager = function(){
                 'unsorted' : [],
                 'none' : [],
                 'house chores' : [new Task('bobo task', 'house chores')],
+                // add more entries to this so that this will be the default dev testing dataset. At the end of development, Ill have to turn this into what data the user is greeted by.
             };
         }
         else{
