@@ -5,7 +5,8 @@ import * as UI from './UI/UI';
 
 UI.createUI();
 //TaskManager.createTestTasks(5);
-//TaskManager.createTask('Make the bed', 'house chores');
+//TaskManager.createProject('food');
+//TaskManager.createTask('Make tea', 'food');
 
 console.log(arrayRef);
 
