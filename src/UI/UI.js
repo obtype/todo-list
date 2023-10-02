@@ -1,5 +1,6 @@
 import {initPage} from './intialize';
 import { arrayRef } from '../storage';
+import { TaskManager } from '../task';
 export {createUI};
 
 
@@ -56,15 +57,14 @@ function updateTaskBoard(projectName){
 
         card.setAttribute('data-project', task.getProject());
         card.setAttribute('data-index', arrayRef[task.getProject()].indexOf(task));
+        // OK, I have decided to include 2 data-attributes: index and project. This will make the process of identifying tasks much more streamlined and reliable.      -- done
         //console.log(arrayRef[task.getProject()].indexOf(task));
 
         card.querySelector('.delete').addEventListener('click', event => {
-            console.log(event);
-                // each card needs to have a data-index attribute that indicates its index in the database array.
-                // then I need to figure out a way to get the current project that is being displayed. I am thinking that I should create a global variable that stores the state of which project is currently on the page as display. But, that might get troublesome later on, if I decide to create a tab with tasks from multiple projects displayed in the dashboard at the same time. Think of a solution to that. One way would be to just include the project name as a data-attribute in each card;
-                // OK, I have decided to include 2 data-attributes: index and project. This will make the process of identifying tasks much more streamlined and reliable.
+            let targetProject = event.target.parentNode.getAttribute('data-project');
+            let targetIndex = event.target.parentNode.getAttribute('data-index');
+            TaskManager.deleteTask(targetProject, targetIndex);
         });
-
 
         Board.appendChild(card);
 

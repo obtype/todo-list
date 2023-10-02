@@ -24,7 +24,7 @@ let storageManager = function(){
             arraysOfAllTasks = {
                 'unsorted' : [],
                 'none' : [],
-                'house chores' : [new Task('bobo task')],
+                'house chores' : [new Task('bobo task', 'house chores')],
             };
         }
         else{
