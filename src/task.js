@@ -135,7 +135,18 @@ let TaskManager = function () {
 		storageManager.saveDataToStorage();
 	}
 
-	// Basically a default task is a task without any (parent) project that it belongs to. I guess I shouldnt realy make a different function for a project task; instead, I should just change the function to createTask() and make the default project parameter = 'none'
+	// Basically a default task is a task without any (parent) project that it belongs to. I guess I shouldnt realy make a different function for a project task; instead, I should just change the function to createTask() and make the default project parameter = 'none' 		-- done
+
+
+	const createProject = function(projectName){
+		arrayRef[projectName] = [];
+		storageManager.saveDataToStorage();
+	}
+
+	const deleteProject = function(projectName){
+		delete arrayRef[projectName];
+		storageManager.saveDataToStorage();
+	}
 
 	
 
@@ -144,6 +155,8 @@ let TaskManager = function () {
 		createTask,
 		deleteTask,
 		createTestTasks,
+		createProject,
+		deleteProject,
 
 
 	}
