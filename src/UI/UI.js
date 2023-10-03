@@ -103,6 +103,28 @@ function updateProjectList(){
 }
 
 
+
+function initTaskCreator(){
+    //do this next prolly.
+    let container = document.createElement('div');
+
+    let dashBoard = document.querySelector('.dashboard .main');
+    let taskWindow = document.createElement('div');
+    let name = document.createElement('input');
+
+
+    taskWindow.classList.add('create');
+    container.classList.add('container');
+
+    
+    taskWindow.appendChild(name);
+    container.appendChild(taskWindow);
+    dashBoard.appendChild(container)
+    //wtf is going on
+
+}
+
+
 function addEventHandlers() {
    
 
@@ -128,6 +150,7 @@ function createUI(){
 
     updateTaskBoard('none');
     addEventHandlers();
+    initTaskCreator();
 }
 
 

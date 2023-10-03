@@ -57,6 +57,9 @@ function initSidebar(){
 
 }
 
+
+
+
 function initDashBoard(){
     let dashboard = document.createElement('div');
     let title = document.createElement('div');
