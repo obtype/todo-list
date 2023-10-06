@@ -161,6 +161,14 @@ let TaskManager = function () {
 		storageManager.saveDataToStorage();
 	}
 
+	const getTaskFromNode = function(targetNode){
+		
+		let task = arrayRef[targetNode.getAttribute('data-project')][targetNode.getAttribute('data-index')]
+
+		return task;
+
+	}
+
 	
 
 
@@ -170,6 +178,7 @@ let TaskManager = function () {
 		createTestTasks,
 		createProject,
 		deleteProject,
+		getTaskFromNode,
 
 
 	}

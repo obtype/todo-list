@@ -30,7 +30,7 @@ div.content{
     white-space: nowrap;
 }
 
-.create-task{
+.create-task-btn{
     background-color: rgb(163, 68, 68);
     border-radius: 5px;
     width:fit-content;
@@ -81,7 +81,7 @@ div.content{
     font-size: 16px;
 }
 
-.create {
+.create, .view-task {
     background-color:rgb(104, 102, 102);
     height: 300px;
     width: 220px;

@@ -1,6 +1,6 @@
 import {initPage} from './intialize';
 import { arrayRef } from '../storage';
-import { TaskManager } from '../task';
+import { Task, TaskManager } from '../task';
 export {createUI};
 
 
@@ -60,12 +60,9 @@ function updateTaskBoard(projectName){
         // OK, I have decided to include 2 data-attributes: index and project. This will make the process of identifying tasks much more streamlined and reliable.      -- done
         //console.log(arrayRef[task.getProject()].indexOf(task));
 
-        card.querySelector('.delete').addEventListener('click', event => {
-            let targetProject = event.target.parentNode.getAttribute('data-project');
-            let targetIndex = event.target.parentNode.getAttribute('data-index');
-            TaskManager.deleteTask(targetProject, targetIndex);
-            updateTaskBoard(projectName);
-        });
+        card.querySelector('.delete').addEventListener('click', deleteTaskEvent);
+
+        card.querySelector('.view').addEventListener('click', viewTaskEvent)
 
 
         Board.appendChild(card);
@@ -76,7 +73,7 @@ function updateTaskBoard(projectName){
     let createTaskBtn = document.createElement('div');
 
     createTaskBtn.textContent = 'Create a new Task!';
-    createTaskBtn.classList.add('create-task');
+    createTaskBtn.classList.add('create-task-btn');
     createTaskBtn.addEventListener('click', displayCreateTaskWindow)
 
 
@@ -85,12 +82,67 @@ function updateTaskBoard(projectName){
 
 }
 
-function displayCreateTaskWindow(){
+function viewTaskEvent(event){
+    //I am creating the event for view the task details.
+    //I will create a new function that initializes the detailed task viewer, initTaskViewer();
+    initTaskViewer(event.target.parentNode);
     let popupContainer = document.querySelector('.pop-container');
-
     popupContainer.style = 'display: flex;';
 
+    //console.log(123);
+}
+function initTaskViewer(targetNode){
+    let container = document.querySelector('.pop-container');
+    let taskWindow = document.createElement('div');
+    taskWindow.classList.add('view-task');
 
+    let name = document.createElement('div');
+    let description = document.createElement('div');
+    let project = document.createElement('div');
+    let priority = document.createElement('div');
+    let dueDate = document.createElement('div');
+    let notes = document.createElement('div');
+
+    let task = TaskManager.getTaskFromNode(targetNode);
+
+    console.log(task.getTitle());
+
+    name.textContent = `Title: ${task.getTitle()} `;
+    description.textContent = `Description: ${task.getDescription()}`;
+    project.textContent = `Project: ${task.getProject()}`;
+    priority.textContent = `Priority: ${task.getPriority()}`;
+    dueDate.textContent = `Due Date: ${task.getDueDate()}`;
+    notes .textContent = `Notes: ${task.getNotes()}`;
+
+
+    taskWindow.appendChild(name);
+    taskWindow.appendChild(description);
+    taskWindow.appendChild(project);
+    taskWindow.appendChild(priority);
+    taskWindow.appendChild(dueDate);
+    taskWindow.appendChild(notes);
+
+    container.appendChild(taskWindow);
+
+
+}
+
+
+function deleteTaskEvent(event){
+    {
+        let targetProject = event.target.parentNode.getAttribute('data-project');
+        let targetIndex = event.target.parentNode.getAttribute('data-index');
+        TaskManager.deleteTask(targetProject, targetIndex);
+        updateTaskBoard(event.target.parentNode.getAttribute('data-project'));
+    }
+
+}
+
+
+function displayCreateTaskWindow(){
+    initTaskCreator();
+    let popupContainer = document.querySelector('.pop-container');
+    popupContainer.style = 'display: flex;';
 
 }
 
@@ -130,11 +182,11 @@ function initTaskCreator(){
     //do this next prolly.
     let container = document.querySelector('.pop-container');
 
-    while(container.firstChild){        //remove clear the container from before.
+    while(container.firstChild){        //clear the container from before.
         container.removeChild(container.firstChild);
     }
 
-    let dashBoard = document.querySelector('.dashboard .main');
+    //let dashBoard = document.querySelector('.dashboard .main');
     let taskWindow = document.createElement('form');
 
     {   //This entire block is used to create the name input field.
@@ -207,7 +259,7 @@ function initTaskCreator(){
         taskWindow.appendChild(notesContainer);
     }
 
-    //commit the form comletoion
+    
 
 
     
@@ -216,12 +268,9 @@ function initTaskCreator(){
     container.style = 'display:none;'
     taskWindow.classList.add('create');
 
-
-    
-
     
     container.appendChild(taskWindow);
-    dashBoard.appendChild(container)
+    //dashBoard.appendChild(container)
     //wtf is going on
 
 }
@@ -245,6 +294,22 @@ function addEventHandlers() {
     defaultProject.addEventListener('click', e => updateTaskBoard(e.target.getAttribute('data-project')));
     // In the above line, I am adding the event listener for the default list beacause in the updateProjectList() function, the event handler for default project is not assigned. And this only needs to be called once cuz the 'default list' title can not be modified by the user.
 
+    let popupContainer = document.querySelector('.pop-container');
+    popupContainer.addEventListener('click', closePopup);
+
+
+
+}
+
+function closePopup(e){
+    let popupContainer = document.querySelector('.pop-container');
+    if(e.target === popupContainer){
+        while(popupContainer.firstChild){
+            popupContainer.removeChild(popupContainer.firstChild);
+        }
+        popupContainer.style = 'display: none;';
+    }
+    
 }
 
 
@@ -257,7 +322,7 @@ function createUI(){
     updateProjectList();
     updateTaskBoard('none');
     addEventHandlers();
-    initTaskCreator();
+    
 }
 
 
