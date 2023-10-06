@@ -67,9 +67,31 @@ function updateTaskBoard(projectName){
             updateTaskBoard(projectName);
         });
 
+
         Board.appendChild(card);
 
     });
+    //the above loop adds all the task cards.
+
+    let createTaskBtn = document.createElement('div');
+
+    createTaskBtn.textContent = 'Create a new Task!';
+    createTaskBtn.classList.add('create-task');
+    createTaskBtn.addEventListener('click', displayCreateTaskWindow)
+
+
+    Board.appendChild(createTaskBtn);
+
+
+}
+
+function displayCreateTaskWindow(){
+    let popupContainer = document.querySelector('.pop-container');
+
+    popupContainer.style = 'display: flex;';
+
+
+
 }
 
 /* function getListOfProjects(){
@@ -106,18 +128,98 @@ function updateProjectList(){
 
 function initTaskCreator(){
     //do this next prolly.
-    let container = document.createElement('div');
+    let container = document.querySelector('.pop-container');
+
+    while(container.firstChild){        //remove clear the container from before.
+        container.removeChild(container.firstChild);
+    }
 
     let dashBoard = document.querySelector('.dashboard .main');
-    let taskWindow = document.createElement('div');
-    let name = document.createElement('input');
+    let taskWindow = document.createElement('form');
 
+    {   //This entire block is used to create the name input field.
+        let name = document.createElement('input');
+        let nameLabel = document.createElement('label');
+        name.id = 'taskName';
+        nameLabel.setAttribute('for', 'taskName');
+        nameLabel.textContent = 'Task Name: ';
 
-    taskWindow.classList.add('create');
-    container.classList.add('container');
+        let nameContainer = document.createElement('div');
+        nameContainer.classList.add('name');
+        nameContainer.appendChild(nameLabel);
+        nameContainer.appendChild(name);
+        taskWindow.appendChild(nameContainer);
+    }
+
+    {   
+        let description = document.createElement('input');
+        let descriptionLabel = document.createElement('label');
+        description.id = 'taskDescription';
+        descriptionLabel.setAttribute('for', 'taskDescription');
+        descriptionLabel.textContent = 'Task Description: ';
+
+        let descriptionContainer = document.createElement('div');
+        descriptionContainer.classList.add('description');
+        descriptionContainer.appendChild(descriptionLabel);
+        descriptionContainer.appendChild(description);
+        taskWindow.appendChild(descriptionContainer);
+    }
+
+    {   
+        let priority = document.createElement('input');
+        let priorityLabel = document.createElement('label');
+        priority.id = 'taskPriority';
+        priorityLabel.setAttribute('for', 'taskPriority');
+        priorityLabel.textContent = 'Task Priority: ';
+
+        let priorityContainer = document.createElement('div');
+        priorityContainer.classList.add('priority');
+        priorityContainer.appendChild(priorityLabel);
+        priorityContainer.appendChild(priority);
+        taskWindow.appendChild(priorityContainer);
+    }
+
+    {   
+        let dueDate = document.createElement('input');
+        let dueDateLabel = document.createElement('label');
+        dueDate.id = 'taskDueDate';
+        dueDateLabel.setAttribute('for', 'taskDueDate');
+        dueDateLabel.textContent = 'Task DueDate: ';
+
+        let dueDateContainer = document.createElement('div');
+        dueDateContainer.classList.add('dueDate');
+        dueDateContainer.appendChild(dueDateLabel);
+        dueDateContainer.appendChild(dueDate);
+        taskWindow.appendChild(dueDateContainer);
+    }
+
+    {   
+        let notes = document.createElement('input');
+        let notesLabel = document.createElement('label');
+        notes.id = 'taskNotes';
+        notesLabel.setAttribute('for', 'taskNotes');
+        notesLabel.textContent = 'Task Notes: ';
+
+        let notesContainer = document.createElement('div');
+        notesContainer.classList.add('notes');
+        notesContainer.appendChild(notesLabel);
+        notesContainer.appendChild(notes);
+        taskWindow.appendChild(notesContainer);
+    }
+
+    //commit the form comletoion
+
 
     
-    taskWindow.appendChild(name);
+
+
+    container.style = 'display:none;'
+    taskWindow.classList.add('create');
+
+
+    
+
+    
     container.appendChild(taskWindow);
     dashBoard.appendChild(container)
     //wtf is going on
@@ -125,19 +227,23 @@ function initTaskCreator(){
 }
 
 
+
+
 function addEventHandlers() {
    
 
-    let projectList = document.querySelector('.project ul');
+    /* let projectList = document.querySelector('.project ul');
     while(projectList.firstChild){
         projectList.removeChild(projectList.firstChild);        //clear the previous list items.
-    }
+    } */
 
-    updateProjectList();
+    //updateProjectList();
+    //leaving the above code as a comment because I dont know why this is even there in the first place, but if something breaks because of removing it, i left it so i can go back just in case ;)
 
-    let defaultList = document.querySelector('.default .title');
 
-    defaultList.addEventListener('click', e => updateTaskBoard(e.target.getAttribute('data-project')));
+    let defaultProject = document.querySelector('.default .title');
+    defaultProject.addEventListener('click', e => updateTaskBoard(e.target.getAttribute('data-project')));
+    // In the above line, I am adding the event listener for the default list beacause in the updateProjectList() function, the event handler for default project is not assigned. And this only needs to be called once cuz the 'default list' title can not be modified by the user.
 
 }
 
@@ -148,6 +254,7 @@ function addEventHandlers() {
 function createUI(){
     initPage();
 
+    updateProjectList();
     updateTaskBoard('none');
     addEventHandlers();
     initTaskCreator();

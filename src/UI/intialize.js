@@ -66,6 +66,7 @@ function initDashBoard(){
     let mainContent = document.createElement('div');
     let mainContentTitle = document.createElement('div');
     let mainContentCards = document.createElement('div');
+    let popupContainer = document.createElement('div');
 
 
     title.classList.add('title');
@@ -73,7 +74,9 @@ function initDashBoard(){
     mainContent.classList.add('main');
     mainContentTitle.classList.add('title');
     mainContentCards.classList.add('card-list');
+    popupContainer.classList.add('pop-container');
 
+    popupContainer.style = 'display: none;';
 
 
     title.textContent = 'Welcome back, Scribe Master!';
@@ -81,7 +84,7 @@ function initDashBoard(){
 
     mainContent.appendChild(mainContentTitle);
     mainContent.appendChild(mainContentCards);
-
+    mainContent.appendChild(popupContainer);
     
     dashboard.appendChild(title);
     dashboard.appendChild(mainContent);
