@@ -30,12 +30,13 @@ div.content{
     white-space: nowrap;
 }
 
-.create-task-btn{
+.create-task-btn, .create-project-btn{
     background-color: rgb(163, 68, 68);
     border-radius: 5px;
     width:fit-content;
     padding: 10px 20px;
     color: whitesmoke;
+    white-space: nowrap;
 }
 
 .sidebar .default .title {

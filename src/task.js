@@ -118,22 +118,6 @@ let TaskManager = function () {
 
 		return task;
 	}
-	/* const deleteTask = function (title) {
-
-		console.log("Before deletion length", arrayRef.length);
-		
-
-		for(let i = 0; i < arrayRef.length; i++){
-			if(arrayRef[i].title === title){
-				arrayRef.splice(i,1);
-				i -= 1;
-				console.log("item deleted.");
-			}
-		}
-
-		console.log("After deletion length", arrayRef.length);
-		storageManager.saveDataToStorage();
-	} */
 
 
 	const deleteTask = function (projectName, index) {

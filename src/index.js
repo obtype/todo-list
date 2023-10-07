@@ -13,5 +13,7 @@ TaskManager.createTask('Make bed', 'house chores');
 TaskManager.createTask('Make car', 'house chores');
 TaskManager.createTask('Make tea', 'food'); */
 
+TaskManager.createProject('mousies!');
+
 console.log(arrayRef);
 

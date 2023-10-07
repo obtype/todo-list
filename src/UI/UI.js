@@ -180,6 +180,89 @@ function updateProjectList(){
         //This loop updates the project list according to the projects 
     })
 
+
+
+    let createProjectBtn = document.createElement('div');
+    createProjectBtn.textContent = 'New project!';
+    createProjectBtn.classList.add('create-project-btn');
+    createProjectBtn.addEventListener('click', displayProjectCreator)
+    
+
+    projectList.appendChild(createProjectBtn);
+
+
+
+}
+
+function initProjectCreator(){
+
+
+    let container = document.querySelector('.pop-container');
+
+    while(container.firstChild){        //clear the container from before.
+        container.removeChild(container.firstChild);
+    }
+
+    let taskWindow = document.createElement('form');
+
+    taskWindow.classList.add('create', 'project');
+
+    let projectNameContainer = document.createElement('div');
+    let projectNameInput = document.createElement('input');
+    let projectNameLabel = document.createElement('label');
+
+    projectNameInput.setAttribute('name', 'name');
+    projectNameLabel.setAttribute('for', 'name');
+
+    projectNameLabel.textContent = 'Project Name: ';
+
+
+    projectNameContainer.appendChild(projectNameLabel);
+    projectNameContainer.appendChild(projectNameInput);
+
+
+    let submitBtn = document.createElement('button');
+
+    submitBtn.textContent = 'Create Project';
+
+    submitBtn.addEventListener('click', createProjectEvent);
+    taskWindow.appendChild(submitBtn);
+
+
+    taskWindow.appendChild(projectNameContainer);
+    container.appendChild(taskWindow);
+
+}
+
+function createProjectEvent(event){
+    event.preventDefault();
+
+    let createProjectFormData = new FormData(document.querySelector('form.create.project'));
+
+    let projectName = createProjectFormData.get('name');
+
+    if(projectName.trim() !== ''){
+        TaskManager.createProject(projectName);
+        updateProjectList();
+        let popupContainer = document.querySelector('.pop-container');
+        while(popupContainer.firstChild){
+            popupContainer.removeChild(popupContainer.firstChild);
+        }
+        popupContainer.style = 'display: none;';
+
+    }
+    else{
+        console.log('Enter something in the project name field!');
+    }
+  
+
+}
+
+function displayProjectCreator(){
+    initProjectCreator();
+    let popupContainer = document.querySelector('.pop-container');
+    popupContainer.style = 'display: flex;';
+
 }
 
 
@@ -284,7 +367,7 @@ function initTaskCreator(){
 
 
     container.style = 'display:none;'
-    taskWindow.classList.add('create');
+    taskWindow.classList.add('create', 'task');
 
     
     container.appendChild(taskWindow);
