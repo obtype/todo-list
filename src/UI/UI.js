@@ -341,17 +341,54 @@ function initTaskCreator(){
     }
 
     {   
-        let priority = document.createElement('input');
-        let priorityLabel = document.createElement('label');
-        priority.id = 'taskPriority';
-        priority.setAttribute('name', 'priority');
-        priorityLabel.setAttribute('for', 'taskPriority');
-        priorityLabel.textContent = 'Task Priority: ';
+        let priorityHigh = document.createElement('input');
+        let priorityHighLabel = document.createElement('label');
+        let priorityMedium = document.createElement('input');
+        let priorityMediumLabel = document.createElement('label');
+        let priorityLow = document.createElement('input');
+        let priorityLowLabel = document.createElement('label');
+
+        priorityHigh.type = 'radio';
+        priorityHigh.id = 'priorityHigh';
+        priorityHigh.name = 'priority';
+        priorityHigh.value = 'High';
+        priorityHighLabel.for = 'priorityHigh';
+        priorityHighLabel.textContent = 'High';
+
+        priorityMedium.type = 'radio';
+        priorityMedium.id = 'priorityMedium';
+        priorityMedium.name = 'priority';
+        priorityMedium.value = 'Medium';
+        priorityMediumLabel.setAttribute('for', 'priorityMedium');
+        priorityMediumLabel.textContent = 'Medium';
+
+        priorityLow.type = 'radio';
+        priorityLow.id = 'priorityLow';
+        priorityLow.name = 'priority';
+        priorityLow.value = 'Low';
+        priorityLowLabel.setAttribute('for', 'priorityLow');
+        priorityLowLabel.textContent = 'Low';
+
+       
 
         let priorityContainer = document.createElement('div');
         priorityContainer.classList.add('priority');
-        priorityContainer.appendChild(priorityLabel);
-        priorityContainer.appendChild(priority);
+        let label = document.createElement('div')
+        label.textContent = 'Priority: ';
+        priorityContainer.appendChild(label);
+
+        priorityContainer.appendChild(priorityHighLabel);
+        priorityContainer.appendChild(priorityHigh);
+
+        priorityContainer.appendChild(priorityMediumLabel);
+        priorityContainer.appendChild(priorityMedium);
+
+        priorityContainer.appendChild(priorityLowLabel);
+        priorityContainer.appendChild(priorityLow);
+
+
+
+        
         taskWindow.appendChild(priorityContainer);
     }
 
