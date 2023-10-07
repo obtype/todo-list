@@ -26,9 +26,33 @@ function updateTaskBoard(projectName){
     let Board = document.querySelector('div.card-list');
     clearBoard();
 
-    let projectTitle = Board.parentNode.querySelector('.main > .title');
-    projectTitle.textContent = (projectName === "none") ? "Default List" : projectName;
-    projectTitle.setAttribute('data-project', projectName);
+    //let projectTitleContainer = document.createElement('div');
+
+    let projectTitleContainer = Board.parentNode.querySelector('.main > .title');
+    projectTitleContainer.setAttribute('data-project', projectName);
+
+    let projectTitleText = document.createElement('div');
+    projectTitleText.textContent = (projectName === "none") ? "Default List" : projectName;
+    let projectDeleteBtn = document.createElement('button');
+    projectDeleteBtn.textContent = 'Delete Project';
+    if(projectName === "none"){
+        projectDeleteBtn.style = 'display: none;';
+    }
+    else{
+        projectDeleteBtn.style = 'display: block';
+    }
+
+    while(projectTitleContainer.firstChild){
+        projectTitleContainer.removeChild(projectTitleContainer.firstChild);
+    }
+    
+    projectTitleContainer.appendChild(projectTitleText);
+    projectTitleContainer.appendChild(projectDeleteBtn);
+
+    projectDeleteBtn.addEventListener('click', deleteProjectEvent)
+
+
+
 
     let taskCard = document.createElement('div');
     let taskTitle = document.createElement('div');
@@ -86,6 +110,13 @@ function updateTaskBoard(projectName){
     Board.appendChild(createTaskBtn);
 
 
+}
+
+function deleteProjectEvent(event){
+    let projectName = event.target.parentNode.getAttribute('data-project');
+    TaskManager.deleteProject(projectName);
+    updateTaskBoard('none'); 
+    updateProjectList();
 }
 
 function viewTaskEvent(event){

@@ -9,7 +9,7 @@ body{
 
 div.content{
     display: grid;
-    grid-template-columns: 1.5fr 3fr;
+    grid-template-columns: 1fr 3fr;
     grid-template-rows: 1fr 30px;
     height: 100%;
 }
@@ -71,6 +71,15 @@ div.content{
 form .title {
     font-size: 16px;
 }
+
+.main > .title{
+    display:flex;
+    justify-content: start;
+}
+.main > .title > button{
+    margin-left: auto;
+}
+
 
 .card {
     background-color: rgb(197, 157, 108);

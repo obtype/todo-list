@@ -80,7 +80,7 @@ function initDashBoard(){
 
 
     title.textContent = 'Welcome back, Scribe Master!';
-    mainContentTitle.textContent = "Your (Project's) notes";
+    //mainContentTitle.textContent = "Your (Project's) notes";
 
     mainContent.appendChild(mainContentTitle);
     mainContent.appendChild(mainContentCards);
