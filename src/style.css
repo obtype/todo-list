@@ -67,6 +67,9 @@ div.content{
 .title{
     font-size: 30px;
 }
+form .title {
+    font-size: 16px;
+}
 
 .card {
     background-color: rgb(197, 157, 108);
@@ -86,6 +89,7 @@ div.content{
     height: 300px;
     width: 220px;
     border-radius: 8px;
+    color:antiquewhite;
     
 }
 

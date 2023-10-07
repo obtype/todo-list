@@ -45,13 +45,8 @@ let storageManager = function(){
 
     let saveDataToStorage = function(){
         if(arraysOfAllTasks['unsorted'].length !== 0){
-            
-            console.log('This fucker shouldnt be running fml')
-            //figure out why tf this if statement is running smh.
             sortArray();
         }
-
-
 
         localStorage.setItem('database array', JSON.stringify(arraysOfAllTasks));
     }

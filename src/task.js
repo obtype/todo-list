@@ -110,8 +110,8 @@ let TaskManager = function () {
 	}
 
 	
-	const createTask = function (title, project ='none') { 
-		let task = new Task(title, project);
+	const createTask = function (title, project ='none', description = null, dueDate = null, priority = null, notes = null) { 
+		let task = new Task(title, project ,description, dueDate , priority, notes);
 		
 		arrayRef['unsorted'].push(task);
 		storageManager.saveDataToStorage();

@@ -1,6 +1,8 @@
 import {initPage} from './intialize';
-import { arrayRef } from '../storage';
-import { Task, TaskManager } from '../task';
+//import { arrayRef } from '../storage';
+import { arrayRef } from '../internal';
+//import { TaskManager } from '../task';
+import { TaskManager } from '../internal';
 export {createUI};
 
 
@@ -23,7 +25,11 @@ function updateTaskBoard(projectName){
 
     let Board = document.querySelector('div.card-list');
     clearBoard();
-    
+
+    let projectTitle = Board.parentNode.querySelector('.main > .title');
+    projectTitle.textContent = (projectName === "none") ? "Default List" : projectName;
+    projectTitle.setAttribute('data-project', projectName);
+
     let taskCard = document.createElement('div');
     let taskTitle = document.createElement('div');
     let taskPriority = document.createElement('div');
@@ -96,7 +102,7 @@ function initTaskViewer(targetNode){
     let taskWindow = document.createElement('div');
     taskWindow.classList.add('view-task');
 
-    let name = document.createElement('div');
+    let title = document.createElement('div');
     let description = document.createElement('div');
     let project = document.createElement('div');
     let priority = document.createElement('div');
@@ -107,7 +113,7 @@ function initTaskViewer(targetNode){
 
     console.log(task.getTitle());
 
-    name.textContent = `Title: ${task.getTitle()} `;
+    title.textContent = `Title: ${task.getTitle()} `;
     description.textContent = `Description: ${task.getDescription()}`;
     project.textContent = `Project: ${task.getProject()}`;
     priority.textContent = `Priority: ${task.getPriority()}`;
@@ -115,7 +121,7 @@ function initTaskViewer(targetNode){
     notes .textContent = `Notes: ${task.getNotes()}`;
 
 
-    taskWindow.appendChild(name);
+    taskWindow.appendChild(title);
     taskWindow.appendChild(description);
     taskWindow.appendChild(project);
     taskWindow.appendChild(priority);
@@ -190,23 +196,25 @@ function initTaskCreator(){
     let taskWindow = document.createElement('form');
 
     {   //This entire block is used to create the name input field.
-        let name = document.createElement('input');
-        let nameLabel = document.createElement('label');
-        name.id = 'taskName';
-        nameLabel.setAttribute('for', 'taskName');
-        nameLabel.textContent = 'Task Name: ';
+        let title = document.createElement('input');
+        let titleLabel = document.createElement('label');
+        title.id = 'taskTitle';
+        title.setAttribute('name', 'title');
+        titleLabel.setAttribute('for', 'taskTitle');
+        titleLabel.textContent = 'Task Title: ';
 
-        let nameContainer = document.createElement('div');
-        nameContainer.classList.add('name');
-        nameContainer.appendChild(nameLabel);
-        nameContainer.appendChild(name);
-        taskWindow.appendChild(nameContainer);
+        let titleContainer = document.createElement('div');
+        titleContainer.classList.add('title');
+        titleContainer.appendChild(titleLabel);
+        titleContainer.appendChild(title);
+        taskWindow.appendChild(titleContainer);
     }
 
     {   
         let description = document.createElement('input');
         let descriptionLabel = document.createElement('label');
         description.id = 'taskDescription';
+        description.setAttribute('name', 'description');
         descriptionLabel.setAttribute('for', 'taskDescription');
         descriptionLabel.textContent = 'Task Description: ';
 
@@ -221,6 +229,7 @@ function initTaskCreator(){
         let priority = document.createElement('input');
         let priorityLabel = document.createElement('label');
         priority.id = 'taskPriority';
+        priority.setAttribute('name', 'priority');
         priorityLabel.setAttribute('for', 'taskPriority');
         priorityLabel.textContent = 'Task Priority: ';
 
@@ -235,6 +244,7 @@ function initTaskCreator(){
         let dueDate = document.createElement('input');
         let dueDateLabel = document.createElement('label');
         dueDate.id = 'taskDueDate';
+        dueDate.setAttribute('name', 'dueDate');
         dueDateLabel.setAttribute('for', 'taskDueDate');
         dueDateLabel.textContent = 'Task DueDate: ';
 
@@ -249,6 +259,7 @@ function initTaskCreator(){
         let notes = document.createElement('input');
         let notesLabel = document.createElement('label');
         notes.id = 'taskNotes';
+        notes.setAttribute('name', 'notes');
         notesLabel.setAttribute('for', 'taskNotes');
         notesLabel.textContent = 'Task Notes: ';
 
@@ -259,6 +270,13 @@ function initTaskCreator(){
         taskWindow.appendChild(notesContainer);
     }
 
+    let submitBtn = document.createElement('button');
+
+    submitBtn.textContent = 'Create Task';
+
+    submitBtn.addEventListener('click', createTaskEvent);
+    taskWindow.appendChild(submitBtn);
+    
     
 
 
@@ -272,6 +290,54 @@ function initTaskCreator(){
     container.appendChild(taskWindow);
     //dashBoard.appendChild(container)
     //wtf is going on
+
+}
+function createTaskEvent(event){
+    event.preventDefault();     //prevents default form behavior i.e. sending the data to a server.
+
+    let creationForm = document.querySelector('form.create');
+
+    let createTaskFormData = new FormData(creationForm);
+    console.log(createTaskFormData.get('title'));
+
+    //basically I have to verify that all the data that I am receiving in the form is valid or not.
+    //for that I need to decide on which data entries I want to make optional, which I want to make fard.
+    //the logic for validating input will go in here I think most probably.
+
+    console.log("  asd sdfas  ".trim());
+    console.log(event.target.parentNode.parentNode.parentNode.querySelector('.main > .title').getAttribute('data-project'));
+    //create all the vars of the name etc;
+    let title = createTaskFormData.get('title');
+    let project = event.target.parentNode.parentNode.parentNode.querySelector('.main > .title').getAttribute('data-project');
+    let description = createTaskFormData.get('description');
+    let dueDate = createTaskFormData.get('dueDate');
+    let priority = createTaskFormData.get('priority');
+    let notes = createTaskFormData.get('notes');
+
+    //console.log(createTaskFormData.getAll());
+    let checkPassed = 0;
+    for (let item of createTaskFormData.values()){
+        if(item.trim() === ''){
+            console.log('Fill in all the fields!');
+        }
+        else{
+            //console.log(item.trim());
+           checkPassed += 1;
+        }
+    }
+
+    if(checkPassed === 5){
+        TaskManager.createTask(title, project ,description, dueDate , priority, notes);
+        updateTaskBoard(project);
+
+        //remove the popup form.
+        let popupContainer = document.querySelector('.pop-container');
+        while(popupContainer.firstChild){
+            popupContainer.removeChild(popupContainer.firstChild);
+        }
+        popupContainer.style = 'display: none;';
+    }
+
 
 }
 
