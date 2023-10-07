@@ -33,7 +33,7 @@ function updateTaskBoard(projectName){
 
     let projectTitleText = document.createElement('div');
     projectTitleText.textContent = (projectName === "none") ? "Default List" : projectName;
-    let projectDeleteBtn = document.createElement('button');
+    let projectDeleteBtn = document.createElement('div');
     projectDeleteBtn.textContent = 'Delete Project';
     if(projectName === "none"){
         projectDeleteBtn.style = 'display: none;';
@@ -50,6 +50,7 @@ function updateTaskBoard(projectName){
     projectTitleContainer.appendChild(projectDeleteBtn);
 
     projectDeleteBtn.addEventListener('click', deleteProjectEvent)
+    projectDeleteBtn.classList.add('delete-project-btn');
 
 
 
@@ -359,6 +360,7 @@ function initTaskCreator(){
         let dueDateLabel = document.createElement('label');
         dueDate.id = 'taskDueDate';
         dueDate.setAttribute('name', 'dueDate');
+        dueDate.setAttribute('type', 'date');
         dueDateLabel.setAttribute('for', 'taskDueDate');
         dueDateLabel.textContent = 'Task DueDate: ';
 
